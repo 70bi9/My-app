@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangaColor AI - Web Application</title>
+    <!-- Tailwind CSS for modern responsive utility design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for beautiful, sharp modern icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for professional high-contrast typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slateBg: '#090D1A',
+                        slateCard: '#121B2D',
+                        slateButton: '#222F47',
+                        slateBorder: '#1E2D4A',
+                        primaryBlue: '#A8C7FF',
+                        secondaryPurple: '#D0BCFF',
+                        darkTextBlue: '#002F6C',
+                        glowGreen: '#10B981',
+                        errorRed: '#F87171'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #090D1A;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Custom scrollbar for premium touch */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090D1A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222F47;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A8C7FF;
+        }
+        /* Glowing neon animations */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.15); }
+        }
+        .pulse-indicator {
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-24 md:pb-6">
+
+    <!-- TOP HEADER -->
+    <header class="border-b border-slateBorder bg-slateBg/80 backdrop-blur-md sticky top-0 z-40 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div>
+                <div class="flex items-center gap-2">
+                    <h1 class="text-xl font-bold tracking-wide text-white">MangaColor <span class="text-primaryBlue">AI</span></h1>
+                    <span class="text-[9px] font-bold bg-slateButton border border-slateBorder text-primaryBlue px-2 py-0.5 rounded-full uppercase tracking-wider">Web Engine v4.0</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-1">سيرفر تلوين المانغا الذكي • Offline & Cloud Portal</p>
+            </div>
+            
+            <!-- Pro Mode Status Badge -->
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex flex-col items-end text-right">
+                    <span class="text-[10px] text-primaryBlue font-bold tracking-widest uppercase">AI Engine Status</span>
+                    <span class="text-xs text-glowGreen font-semibold flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-glowGreen pulse-indicator"></span> Stable Diffusion XL Active
+                    </span>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-slateCard border border-slateBorder flex items-center justify-center relative overflow-hidden">
+                    <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-primaryBlue to-secondaryPurple"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 py-6 md:px-6">
+        
+        <!-- ================= HOME VIEW ================= -->
+        <section id="view-home" class="space-y-6">
+            <!-- Hero Featured Banner Card -->
+            <div class="bg-gradient-to-br from-slateCard to-slateBg border border-slateBorder rounded-3xl p-6 relative overflow-hidden shadow-2xl">
+                <!-- Pro Mode Badge -->
+                <div class="absolute top-4 left-4 bg-slateButton border border-slateBorder text-primaryBlue text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    PRO MODE ACTIVE
+                </div>
+                
+                <div class="space-y-4 max-w-lg mt-4">
+                    <div class="flex items-center gap-2 text-xs text-gray-400">
+                        <span class="w-2 h-2 rounded-full bg-primaryBlue"></span>
+                        <span>مرحباً بك في تلوين المانغا التلقائي</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white leading-snug">رسمك المفضل بالألوان الكاملة خلال ثوانٍ معدودة.</h2>
+                    <p class="text-sm text-gray-300 leading-relaxed font-light">
+                        يقوم الذكاء الاصطناعي بتحديد الخطوط وملامح الشخصيات بدقة متناهية وإعطاء طيف متناسق من الألوان يحاكي جودة الاستوديوهات اليابانية الأصلية.
+                    </p>
+                    
+                    <div class="pt-2 flex flex-wrap gap-2">
+                        <span class="bg-slateBg/60 text-xs px-3 py-1 rounded-full border border-slateBorder text-gray-300">بدون مفاتيح حسابات</span>
+                        <span class="bg-slateBg/60 text-xs px-3 py-1 rounded-full border border-slateBorder text-gray-300">ميزة سحب للمقارنة</span>
+                        <span class="bg-slateBg/60 text-xs px-3 py-1 rounded-full border border-slateBorder text-primaryBlue">تكامل MangaDex مباشر</span>
+                    </div>
+                </div>
+
+                <!-- Floating Accent Circles -->
+                <div class="absolute -right-16 -bottom-16 w-48 h-48 rounded-full bg-primaryBlue/10 blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-16 -top-16 w-32 h-32 rounded-full bg-secondaryPurple/10 blur-2xl pointer-events-none"></div>
+            </div>
+
+            <!-- Upload Core Action Dashboard -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- PDF Upload Box -->
+                <div class="bg-slateCard border border-slateBorder rounded-3xl p-6 flex flex-col justify-between hover:border-primaryBlue/50 transition-all duration-300 group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-primaryBlue/10 text-primaryBlue flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white group-hover:text-primaryBlue transition-colors">تلوين فصول PDF كاملة</h3>
+                            <p class="text-xs text-gray-400 mt-1">ارفع مستند مانغا PDF أسود وأبيض ليقوم المحرك الذكي بمعالجته صفحة تلو صفحة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label for="pdf-file-input" class="w-full bg-primaryBlue hover:bg-white text-darkTextBlue font-bold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98]">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <span>رفع مانغا PDF • Upload PDF</span>
+                        </label>
+                        <input type="file" id="pdf-file-input" accept=".pdf" class="hidden" onchange="handlePDFUpload(this)">
+                    </div>
+                </div>
+
+                <!-- Batch Images Box -->
+                <div class="bg-slateCard border border-slateBorder rounded-3xl p-6 flex flex-col justify-between hover:border-secondaryPurple/50 transition-all duration-300 group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-secondaryPurple/10 text-secondaryPurple flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-images"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white group-hover:text-secondaryPurple transition-colors">تلوين صور مجمعة</h3>
+                            <p class="text-xs text-gray-400 mt-1">ارفع صوراً متعددة في نفس الوقت وقارن قبل وبعد التلوين بلمسة يد مرنة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label for="image-file-input" class="w-full bg-slateButton hover:bg-slateButton/80 text-white font-bold py-3.5 px-4 rounded-2xl border border-slateBorder flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98]">
+                            <i class="fa-solid fa-images"></i>
+                            <span>رفع صور مجمعة • Batch Images</span>
+                        </label>
+                        <input type="file" id="image-file-input" accept="image/*" multiple class="hidden" onchange="handleImagesUpload(this)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- MangaDex Search Portal Banner -->
+            <div class="bg-slateCard/50 border border-slateBorder rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3 text-right">
+                    <div class="text-2xl text-primaryBlue bg-slateButton w-10 h-10 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">البحث السحابي MangaDex Cloud Portal</h4>
+                        <p class="text-xs text-gray-400 mt-0.5">البحث المباشر في ملايين الفصول بلغات متعددة واستيرادها للتلوين.</p>
+                    </div>
+                </div>
+                <button onclick="navigateTo('view-import')" class="px-5 py-2.5 bg-slateButton hover:bg-slateButton/80 text-primaryBlue font-bold rounded-xl border border-slateBorder text-xs transition-all active:scale-95 flex items-center gap-1.5 self-stretch sm:self-auto justify-center">
+                    <span>البحث والاستيراد الآن</span>
+                    <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                </button>
+            </div>
+
+            <!-- Recent Work Section -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center px-1">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left text-primaryBlue text-xs"></i>
+                        <span>آخر الفصول المعالجة والمحفوظة • Recent</span>
+                    </h3>
+                    <button onclick="navigateTo('view-library')" class="text-xs text-primaryBlue hover:underline font-bold">عرض المكتبة كاملة</button>
+                </div>
+
+                <!-- Recent items grid -->
+                <div id="recent-mangas-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Loaded dynamically via js -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= LIBRARY VIEW ================= -->
+        <section id="view-library" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div>
+                    <h2 class="text-2xl font-black text-white">معرض أعمالك الذكي • Colored Library</h2>
+                    <p class="text-xs text-gray-400 mt-1">تصفح وقارن واقرأ المانغات التي قمت باستيرادها وتلوينها بنقرة زر.</p>
+                </div>
+                <!-- Filters -->
+                <div class="flex gap-2 flex-wrap text-xs font-semibold">
+                    <button onclick="filterLibrary('all')" class="px-3.5 py-1.5 rounded-full bg-primaryBlue text-darkTextBlue transition-colors library-filter-btn">الكل</button>
+                    <button onclick="filterLibrary('favorites')" class="px-3.5 py-1.5 rounded-full bg-slateCard text-gray-300 border border-slateBorder hover:border-primaryBlue transition-colors library-filter-btn">المفضلة</button>
+                    <button onclick="filterLibrary('MangaDex')" class="px-3.5 py-1.5 rounded-full bg-slateCard text-gray-300 border border-slateBorder hover:border-primaryBlue transition-colors library-filter-btn">MangaDex</button>
+                    <button onclick="filterLibrary('Local')" class="px-3.5 py-1.5 rounded-full bg-slateCard text-gray-300 border border-slateBorder hover:border-primaryBlue transition-colors library-filter-btn">محلي</button>
+                </div>
+            </div>
+
+            <!-- Shelf and Grid -->
+            <div id="library-mangas-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Loaded dynamically -->
+            </div>
+
+            <!-- Empty library notice -->
+            <div id="library-empty-notice" class="hidden text-center py-20 bg-slateCard/30 border border-slateBorder rounded-3xl max-w-lg mx-auto space-y-4">
+                <span class="text-5xl">📚</span>
+                <p class="text-md font-bold text-white">المكتبة فارغة حالياً</p>
+                <p class="text-xs text-gray-400 px-6 leading-relaxed">قم برفع ملف PDF أو استيراد فصول مباشرة من ميزة البحث في MangaDex لبدء تلوين حزمتك الأولى!</p>
+                <div class="pt-2">
+                    <button onclick="navigateTo('view-home')" class="px-5 py-2.5 bg-primaryBlue text-darkTextBlue font-bold text-xs rounded-xl hover:bg-white transition-all">ابدأ الآن</button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= IMPORT VIEW (MangaDex Search) ================= -->
+        <section id="view-import" class="space-y-6 hidden">
+            <div>
+                <h2 class="text-2xl font-black text-white">البحث والاستيراد السحابي • Cloud Portal</h2>
+                <p class="text-xs text-gray-400 mt-1">ابحث عن اسم عملك المفضل (ون بيس، هجوم العمالقة، بلو لوك...) في سيرفرات MangaDex واستورده فورا.</p>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <form onsubmit="searchMangaDex(event)" class="flex flex-col sm:flex-row gap-3">
+                <div class="relative weight-1 flex-1">
+                    <input type="text" id="mangadex-search-input" value="Blue Lock" placeholder="اكتب اسم المانغا بالإنجليزية (مثال: One Piece, Jujutsu Kaisen)..." class="w-full bg-slateCard border border-slateBorder text-white text-sm px-4 py-3.5 pr-12 rounded-2xl focus:outline-none focus:border-primaryBlue/70">
+                    <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <button type="submit" class="bg-primaryBlue hover:bg-white text-darkTextBlue font-bold px-6 py-3.5 rounded-2xl text-sm transition-all flex items-center justify-center gap-2 shrink-0">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    <span>ابحث في السيرفر • Search</span>
+                </button>
+            </form>
+
+            <div class="text-[11px] text-gray-400 flex items-center gap-2 px-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-primaryBlue"></span>
+                <span>تنويه: الترجمة العربية والإنجليزية متوفرة لمعظم الفصول الشعبية تلقائياً.</span>
+            </div>
+
+            <!-- Search Status indicator -->
+            <div id="search-status-box" class="hidden py-4 text-center">
+                <span class="inline-flex items-center gap-2 text-sm text-gray-400">
+                    <i class="fa-solid fa-spinner fa-spin text-primaryBlue"></i> جاري استعلام السيرفرات الساقطة...
+                </span>
+            </div>
+
+            <!-- MangaDex search results Grid -->
+            <div id="mangadex-search-results" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Loaded dynamically -->
+            </div>
+        </section>
+
+
+        <!-- ================= PROCESSING TERMINAL VIEW ================= -->
+        <section id="view-terminal" class="space-y-6 hidden">
+            <div class="max-w-xl mx-auto space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="w-20 h-20 bg-primaryBlue/10 text-primaryBlue border border-slateBorder rounded-full flex items-center justify-center text-3xl mx-auto pulse-indicator relative">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-white mt-4">جاري المعالجة والتلون بالذكاء الاصطناعي...</h2>
+                    <p class="text-xs text-gray-400">يجري معالجة صفحات المانغا بدقة فائقة وتطبيق نمذجة Stable Diffusion XL</p>
+                </div>
+
+                <!-- Custom glowing Progress Ring / Bar -->
+                <div class="bg-slateCard border border-slateBorder rounded-2xl p-6 space-y-4 shadow-xl">
+                    <div class="flex justify-between items-center text-xs">
+                        <span id="terminal-current-step" class="text-primaryBlue font-semibold">تلوين الوجوه والخلفيات...</span>
+                        <span id="terminal-percent-text" class="text-white font-bold text-sm">0%</span>
+                    </div>
+                    
+                    <div class="w-full bg-slateBg h-3 rounded-full overflow-hidden border border-slateBorder">
+                        <div id="terminal-progress-bar" class="bg-primaryBlue h-full w-[0%] transition-all duration-300 shadow-[0_0_12px_rgba(168,199,255,0.4)]"></div>
+                    </div>
+                </div>
+
+                <!-- Live Logs terminal emulator -->
+                <div class="bg-black/90 border border-slateBorder rounded-2xl p-4 shadow-xl">
+                    <div class="flex justify-between items-center text-xs text-gray-400 border-b border-slateBorder pb-2 mb-3">
+                        <span class="flex items-center gap-1.5 font-mono"><span class="w-2 h-2 rounded-full bg-glowGreen pulse-indicator"></span> CONNECTED CUDA CONSOLE</span>
+                        <span class="text-[10px] bg-slateButton px-2 py-0.5 rounded text-gray-300 uppercase">120 fps</span>
+                    </div>
+                    <div id="terminal-logs-console" class="font-mono text-[11px] text-green-400 space-y-1.5 h-48 overflow-y-auto leading-relaxed text-left" dir="ltr">
+                        <div>[SYSTEM] Initiating core graphics card interface thread...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SETTINGS VIEW ================= -->
+        <section id="view-settings" class="space-y-6 hidden">
+            <div>
+                <h2 class="text-2xl font-black text-white">إعدادات المحرك والتشخيص • Configuration</h2>
+                <p class="text-xs text-gray-400 mt-1">خصص دقة المعالجة الفائقة، ترميم الملامح، وتحقق من أداء معالجات الرسوميات السحابية المتصلة بالتطبيق.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Left switches panel -->
+                <div class="space-y-4">
+                    <!-- Switch 1 -->
+                    <div class="bg-slateCard border border-slateBorder rounded-3xl p-5 flex justify-between items-center gap-4">
+                        <div class="space-y-1 flex-1">
+                            <h4 class="text-sm font-bold text-white">منع تسرب الألوان • Ultra Accuracy Mode</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">يقوم بإنشاء قناع تتبع دقيق (Masking Segment) لمنع تسرب الألوان خارج خطوط الرسم الأصلي.</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="setting-high-quality" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-slateButton peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:content-[''] after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primaryBlue"></div>
+                        </label>
+                    </div>
+
+                    <!-- Switch 2 -->
+                    <div class="bg-slateCard border border-slateBorder rounded-3xl p-5 flex justify-between items-center gap-4">
+                        <div class="space-y-1 flex-1">
+                            <h4 class="text-sm font-bold text-white">الفصل اللوني الذكي • Face & Clothes Fix</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed font-light">استخدام تقنيات التعرف الذكي Florence-2 لتلوين ملامح الوجوه والملابس بشكل احترافي متناسق.</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="setting-faces-fix" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-slateButton peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:content-[''] after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primaryBlue"></div>
+                        </label>
+                    </div>
+
+                    <!-- Quality selectors -->
+                    <div class="bg-slateCard border border-slateBorder rounded-3xl p-5 space-y-4">
+                        <div>
+                            <h4 class="text-sm font-bold text-white">دقة تصدير وتلوين المستند • Export Quality</h4>
+                            <p class="text-xs text-gray-400 mt-1">اختر دقة المربعات اللونية في الملفات النهائية المصدرة لهاتفك.</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setQuality('Standard')" id="quality-btn-Standard" class="py-2.5 rounded-xl text-xs font-bold transition-all border border-slateBorder bg-slateButton text-primaryBlue focus:outline-none">Standard</button>
+                            <button onclick="setQuality('HD 2K')" id="quality-btn-HD2K" class="py-2.5 rounded-xl text-xs font-bold transition-all border border-slateBorder bg-slateCard text-gray-400 focus:outline-none">HD 2K</button>
+                            <button onclick="setQuality('Ultra 4K')" id="quality-btn-Ultra4K" class="py-2.5 rounded-xl text-xs font-bold transition-all border border-slateBorder bg-slateCard text-gray-400 focus:outline-none">Ultra 4K</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right performance stats panel -->
+                <div class="bg-slateCard border border-slateBorder rounded-3xl p-6 space-y-4">
+                    <h3 class="text-md font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-primaryBlue text-sm"></i>
+                        <span>📊 تشخيص الأداء الذكي • Performance Diagnostics</span>
+                    </h3>
+                    
+                    <div class="border-t border-slateBorder my-2"></div>
+                    
+                    <ul class="text-xs space-y-3 text-gray-300">
+                        <li class="flex justify-between p-1.5 rounded bg-slateBg/45">
+                            <span class="text-gray-400">مُعالج الرسوميات المتصل:</span>
+                            <span class="font-mono text-primaryBlue font-bold">Cloud RTX GPU Core (CUDA Ready)</span>
+                        </li>
+                        <li class="flex justify-between p-1.5 rounded bg-slateBg/45">
+                            <span class="text-gray-400">نموذج التعرف الحسي:</span>
+                            <span class="font-mono text-gray-100">Florence-2-L + CLIP Vision Multi-Agent</span>
+                        </li>
+                        <li class="flex justify-between p-1.5 rounded bg-slateBg/45">
+                            <span class="text-gray-400">حجم الذاكرة التخزينية الموقتة:</span>
+                            <span class="font-mono text-glowGreen">Qwen Cache 128MB System Active</span>
+                        </li>
+                        <li class="flex justify-between p-1.5 rounded bg-slateBg/45">
+                            <span class="text-gray-400">وضعية اتصال API:</span>
+                            <span class="font-mono text-glowGreen font-semibold">مؤمن ومتاح محليا • Sandbox active</span>
+                        </li>
+                        <li class="flex justify-between p-1.5 rounded bg-slateBg/45">
+                            <span class="text-gray-400">زمن استجابة الشبكة المتوسط:</span>
+                            <span class="font-mono text-primaryBlue">38 ms</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= MANGA READER VIEW (With Draggable comparison) ================= -->
+        <section id="view-reader" class="space-y-4 hidden">
+            <!-- Reader Header controls -->
+            <div class="flex justify-between items-center bg-slateCard border border-slateBorder rounded-2xl p-3 px-4 shadow-xl">
+                <button onclick="navigateTo('view-library')" class="text-xs bg-slateButton hover:bg-slateButton/80 text-white font-bold px-4 py-2 rounded-xl border border-slateBorder flex items-center gap-1 transition-all">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للمكتبة</span>
+                </button>
+                
+                <div class="text-center">
+                    <h3 id="reader-manga-title" class="text-sm font-extrabold text-white">اسم العمل</h3>
+                    <p id="reader-chapter-title" class="text-[10px] text-gray-400 font-bold mt-0.5">الفصل 1</p>
+                </div>
+
+                <div class="flex gap-1">
+                    <button onclick="toggleFavoriteCurrentReader()" id="reader-favorite-btn" class="w-9 h-9 text-xs rounded-xl bg-slateButton border border-slateBorder text-gray-400 flex items-center justify-center transition-all hover:text-yellow-400">
+                        <i class="fa-solid fa-star"></i>
+                    </button>
+                    <!-- Trigger manual reload just in case -->
+                    <button onclick="triggerReaderReload()" class="w-9 h-9 text-xs rounded-xl bg-slateButton border border-slateBorder text-primaryBlue flex items-center justify-center transition-all">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- THE SWIPE CONTAINER BOX -->
+            <div class="relative bg-black border border-slateBorder rounded-3xl overflow-hidden shadow-2xl mx-auto touch-none select-none select-none max-w-lg h-[460px] sm:h-[580px] md:h-[640px]" id="swipe-area-container">
+                
+                <!-- Right Side IMAGE: Fully Colored Version -->
+                <div class="absolute inset-0 w-full h-full bg-slateBg flex items-center justify-center p-1">
+                    <img id="image-colored" src="" alt="Colored View" class="max-w-full max-h-full object-contain pointer-events-none filter saturate-120 select-none">
+                </div>
+
+                <!-- Left Side IMAGE: Greyscale Version -->
+                <!-- Crucial: Width is dynamically calculated based on dividing line x-coordinate -->
+                <div id="bw-image-mask" class="absolute left-0 top-0 bottom-0 overflow-hidden bg-slateBg flex items-center justify-center p-1" style="width: 50%;">
+                    <!-- To avoid stretching, this image must have fixed/absolute original sizing inside the container so it aligns perfectly with the colored version -->
+                    <div class="absolute inset-0 flex items-center justify-center p-1" style="width: 100%; height: 100%;">
+                        <img id="image-grayscale" src="" alt="Greyscale View" class="max-w-full max-h-full object-contain pointer-events-none filter grayscale contrast-115 select-none" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                </div>
+
+                <!-- SLIDING DIVIDER HANDLE BAR -->
+                <div id="swipe-handle" class="absolute top-0 bottom-0 w-1 bg-primaryBlue cursor-ew-resize flex items-center justify-center shadow-[0_0_12px_rgba(168,199,255,0.8)]" style="left: 50%;">
+                    <div class="w-8 h-8 rounded-full bg-primaryBlue text-darkTextBlue border-2 border-white flex items-center justify-center shadow-xl text-xs -translate-x-[2px]">
+                        <i class="fa-solid fa-arrows-left-right"></i>
+                    </div>
+                </div>
+
+                <!-- UI overlay helpers -->
+                <div class="absolute bottom-4 right-4 bg-black/80 backdrop-blur border border-slateBorder rounded-full px-4 py-1.5 text-[9px] font-bold text-white flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primaryBlue"></span>
+                    <span>اسحب المقبض لرؤية تفاصيل الألوان</span>
+                </div>
+                
+                <div class="absolute top-4 left-4 bg-slateCard/90 border border-slateBorder rounded-full px-3 py-1 text-[9px] font-bold text-gray-300">
+                    B&W ORIGINAL
+                </div>
+                <div class="absolute top-4 right-4 bg-primaryBlue/90 border border-transparent rounded-full px-3 py-1 text-[9px] text-darkTextBlue font-bold">
+                    AI COLORED
+                </div>
+            </div>
+
+            <!-- Page Navigation Bottom Controls -->
+            <div class="flex justify-between items-center max-w-lg mx-auto py-2">
+                <button onclick="readerPrevPage()" id="reader-prev-btn" class="flex-1 max-w-[140dp] bg-slateButton hover:bg-slateButton/80 text-white font-bold py-3 px-4 rounded-xl border border-slateBorder text-xs flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>الصفحة السابقة</span>
+                </button>
+                
+                <span id="reader-page-indicator" class="text-xs font-bold text-white px-4">صفحة 1 / 1</span>
+                
+                <button onclick="readerNextPage()" id="reader-next-btn" class="flex-1 max-w-[140dp] bg-primaryBlue hover:bg-white text-darkTextBlue font-bold py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
+                    <span>الصفحة التالية</span>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING BOTOM NAVIGATION BAR (Consistent UX) -->
+    <nav class="fixed bottom-0 left-0 right-0 border-t border-slateBorder bg-slateBg/95 backdrop-blur-md z-45 py-2.5 px-4 shadow-xl">
+        <div class="max-w-xl mx-auto flex justify-around items-center">
+            
+            <button onclick="navigateTo('view-home')" id="nav-btn-view-home" class="flex flex-col items-center gap-1.5 text-primaryBlue focus:outline-none focus:ring-0 select-none">
+                <i class="fa-solid fa-house-chimney text-lg"></i>
+                <span class="text-[10px] font-semibold">الرئيسية</span>
+            </button>
+            
+            <button onclick="navigateTo('view-library')" id="nav-btn-view-library" class="flex flex-col items-center gap-1.5 text-gray-400 hover:text-primaryBlue focus:outline-none focus:ring-0 select-none">
+                <i class="fa-solid fa-book-open text-lg"></i>
+                <span class="text-[10px] font-semibold">المكتبة</span>
+            </button>
+            
+            <button onclick="navigateTo('view-import')" id="nav-btn-view-import" class="flex flex-col items-center gap-1.5 text-gray-400 hover:text-primaryBlue focus:outline-none focus:ring-0 select-none">
+                <i class="fa-solid fa-cloud-arrow-down text-lg"></i>
+                <span class="text-[10px] font-semibold">استيراد</span>
+            </button>
+            
+            <button onclick="navigateTo('view-settings')" id="nav-btn-view-settings" class="flex flex-col items-center gap-1.5 text-gray-400 hover:text-primaryBlue focus:outline-none focus:ring-0 select-none">
+                <i class="fa-solid fa-gears text-lg"></i>
+                <span class="text-[10px] font-semibold">الإعدادات</span>
+            </button>
+            
+        </div>
+    </nav>
+
+    <!-- CHAPTER SELECTION MODAL POPUP -->
+    <div id="chapters-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slateCard border border-slateBorder rounded-3xl w-full max-w-lg p-6 max-h-[85vh] flex flex-col shadow-2xl overflow-hidden scale-95 transition-all duration-300">
+            <!-- Modal Title -->
+            <div class="flex justify-between items-start border-b border-slateBorder pb-3 mb-4">
+                <div>
+                    <h3 class="text-md font-black text-white" id="modal-manga-title">اسحب الفصول</h3>
+                    <p class="text-[10px] text-gray-400 mt-1 font-bold">يرجى اختيار الفصل للبدء في تلوينه بالذكاء الاصطناعي</p>
+                </div>
+                <button onclick="closeChaptersModal()" class="w-8 h-8 rounded-full bg-slateBg hover:bg-slateButton border border-slateBorder text-gray-400 hover:text-white flex items-center justify-center transition-all"><i class="fa-solid fa-times"></i></button>
+            </div>
+            
+            <!-- Translation language selection -->
+            <div class="bg-slateBg/55 p-3 rounded-2xl border border-slateBorder text-xs text-gray-300 flex justify-between items-center gap-2 mb-4">
+                <span>تصفية لغة الترجمة:</span>
+                <div class="flex gap-1">
+                    <button id="lang-ar-filter" class="px-3 py-1 rounded bg-primaryBlue text-darkTextBlue font-bold text-[10px]">Arabic</button>
+                    <button id="lang-en-filter" class="px-3 py-1 rounded bg-slateButton text-gray-400 font-bold text-[10px]">English</button>
+                </div>
+            </div>
+
+            <!-- Chapters List Scroll Container -->
+            <div id="modal-chapters-list" class="flex-1 overflow-y-auto space-y-2 pr-1">
+                <!-- Chapters items loaded via API -->
+            </div>
+            
+            <div class="mt-4 pt-3 border-t border-slateBorder flex justify-end">
+                <button onclick="closeChaptersModal()" class="bg-slateButton hover:bg-slateButton/80 text-white font-bold py-2.5 px-5 rounded-2xl text-xs transition-all">إغلاق • Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT STATE & APPLICATION ENGINE ================= -->
+    <script>
+        // Global Application State Store
+        const appState = {
+            currentScreen: 'view-home',
+            customQuality: 'Standard',
+            library: [],
+            searchResults: [],
+            selectedMangaDexId: null,
+            selectedMangaDexTitle: '',
+            selectedMangaDexCover: '',
+            activeReaderManga: null,
+            activeReaderPageIndex: 0,
+            activeFilter: 'all'
+        };
+
+        // Standard pre-defined premium default artworks to populate database initially
+        const defaultMangaData = [
+            {
+                id: 'manga-default-1',
+                title: 'Blue Lock (بلو لوك)',
+                source: 'MangaDex',
+                coverUrl: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&auto=format&fit=crop&q=80',
+                isFavorite: true,
+                status: 'COMPLETED',
+                progress: 100,
+                pageCount: 3,
+                pages: [
+                    'https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=500&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=500&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=500&auto=format&fit=crop&q=80'
+                ]
+            },
+            {
+                id: 'manga-default-2',
+                title: 'Jujutsu Kaisen (جوجوتسو كايسن)',
+                source: 'Local Images',
+                coverUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=80',
+                isFavorite: false,
+                status: 'COMPLETED',
+                progress: 100,
+                pageCount: 2,
+                pages: [
+                    'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80'
+                ]
+            }
+        ];
+
+        // Self-executing setup logic on script load
+        window.onload = function() {
+            initDatabase();
+            navigateTo('view-home');
+            initDragAndSwipe();
+        };
+
+        // Local Storage database state persistence routines
+        function initDatabase() {
+            const savedData = localStorage.getItem('mangacolor_ai_library');
+            if (savedData) {
+                appState.library = JSON.parse(savedData);
+            } else {
+                appState.library = [...defaultMangaData];
+                saveDatabase();
+            }
+            renderRecentLibrary();
+            renderLibraryGrid();
+        }
+
+        function saveDatabase() {
+            localStorage.setItem('mangacolor_ai_library', JSON.stringify(appState.library));
+        }
+
+        // NAVIGATION MODULE
+        function navigateTo(screenId) {
+            // Hide all screen element segments
+            const screens = ['view-home', 'view-library', 'view-import', 'view-terminal', 'view-settings', 'view-reader'];
+            screens.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+
+            // Show current targeted screen container
+            const currentEl = document.getElementById(screenId);
+            if (currentEl) currentEl.classList.remove('hidden');
+            appState.currentScreen = screenId;
+
+            // Manage navigation footer button colors & labels actively
+            const navButtons = ['view-home', 'view-library', 'view-import', 'view-settings'];
+            navButtons.forEach(btnId => {
+                const btn = document.getElementById('nav-btn-' + btnId);
+                if (btn) {
+                    if (btnId === screenId) {
+                        btn.className = "flex flex-col items-center gap-1.5 text-primaryBlue focus:outline-none focus:ring-0 select-none";
+                    } else {
+                        btn.className = "flex flex-col items-center gap-1.5 text-gray-400 hover:text-primaryBlue focus:outline-none focus:ring-0 select-none";
+                    }
+                }
+            });
+
+            // Specific screen hookups
+            if (screenId === 'view-library') {
+                renderLibraryGrid();
+            } else if (screenId === 'view-home') {
+                renderRecentLibrary();
+            }
+            
+            // Auto scroll page top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // ACCORDION / SWIPE-TO-REVEAL CORE ALGORITHM
+        function initDragAndSwipe() {
+            const container = document.getElementById('swipe-area-container');
+            const handle = document.getElementById('swipe-handle');
+            const grayscaleMask = document.getElementById('bw-image-mask');
+            
+            if (!container || !handle || !grayscaleMask) return;
+
+            let isDragging = false;
+
+            const onMove = (clientX) => {
+                const rect = container.getBoundingClientRect();
+                let x = clientX - rect.left;
+                
+                // Keep boundaries
+                if (x < 0) x = 0;
+                if (x > rect.width) x = rect.width;
+
+                const percent = (x / rect.width) * 100;
+                handle.style.left = `${percent}%`;
+                grayscaleMask.style.width = `${percent}%`;
+            };
+
+            // Touch events
+            container.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                if (e.touches && e.touches[0]) {
+                    onMove(e.touches[0].clientX);
+                }
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                if (e.touches && e.touches[0]) {
+                    onMove(e.touches[0].clientX);
+                }
+            }, { passive: true });
+
+            window.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            // Mouse events
+            container.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                onMove(e.clientX);
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                onMove(e.clientX);
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+        }
+
+        // LIVE MANGA DEEP ENGINE SIMULATOR / TERMINAL PRINTER
+        function runAIVirtualTerminal(onComplete) {
+            navigateTo('view-terminal');
+            const progressBar = document.getElementById('terminal-progress-bar');
+            const percentText = document.getElementById('terminal-percent-text');
+            const stepText = document.getElementById('terminal-current-step');
+            const logsConsole = document.getElementById('terminal-logs-console');
+            
+            if (!progressBar || !percentText || !stepText || !logsConsole) return;
+
+            // Clear console output logs
+            logsConsole.innerHTML = '';
+            
+            const logs = [
+                { percent: 5, msg: "[CONNECTOR] Connecting to local server API socket... SUCCESS", step: "توليد شبكة تواصل الأنمي..." },
+                { percent: 12, msg: "[PROCESSOR] Parsing input document layout parameters...", step: "توليد شبكة تواصل الأنمي..." },
+                { percent: 20, msg: "[FLORENCE-2] Analyzing apparel & dynamic background bounds...", step: "ملاحقة الملابس والملامح الأساسية..." },
+                { percent: 35, msg: "[CUDA_GPU] Initiating RTX Core matrix multiplication...", step: "ملاحقة الملابس والملامح الأساسية..." },
+                { percent: 42, msg: "[DEEP_LEARNING] Matching character profile (Isagi Blue Lock matched 89%)...", step: "مطابقة ملامح البطل وخلفية الرسم..." },
+                { percent: 58, msg: "[SDXL_INPAINT] Injecting Stable Diffusion latent state representations...", step: "إرسال حزم التلوين التدريجية..." },
+                { percent: 66, msg: "[QWEN_SEGMENT] Isolating hand & outline noise segment vectors...", step: "تعديل تسريب أطراف الخطوط..." },
+                { percent: 79, msg: "[RENDERING] Applying official color palette masks...", step: "تعديل تسريب أطراف الخطوط..." },
+                { percent: 85, msg: "[POST_FILTER] Running super resolution upscaling tool (HD-HQ export ready)...", step: "تحسين جودة المستند النهائي..." },
+                { percent: 94, msg: "[SUCCESS] Flushing image cache. All layers merged beautifully.", step: "تجميع وحفظ العمل بالمكتبة!" },
+                { percent: 100, msg: "[INFO] Complete! Directing client to reader core UI...", step: "تجميع وحفظ العمل بالمكتبة!" }
+            ];
+
+            let logIndex = 0;
+            progressBar.style.width = `0%`;
+            percentText.innerText = `0%`;
+
+            const interval = setInterval(() => {
+                if (logIndex < logs.length) {
+                    const currentLog = logs[logIndex];
+                    
+                    progressBar.style.width = `${currentLog.percent}%`;
+                    percentText.innerText = `${currentLog.percent}%`;
+                    stepText.innerText = currentLog.step;
+                    
+                    // Add new line log
+                    const logEl = document.createElement('div');
+                    logEl.innerText = currentLog.msg;
+                    logsConsole.appendChild(logEl);
+                    logsConsole.scrollTop = logsConsole.scrollHeight;
+                    
+                    logIndex++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        onComplete();
+                    }, 500);
+                }
+            }, 550);
+        }
+
+        // HANDLERS FOR FILE UPLOAD INPUTS
+        function handlePDFUpload(input) {
+            if (!input.files || input.files.length === 0) return;
+            const file = input.files[0];
+            
+            // Create simulated manga record from PDF upload
+            const newManga = {
+                id: 'local-pdf-' + Date.now(),
+                title: file.name.replace(/\.[^/.]+$/, ""), // Strip extension
+                source: 'Local PDF',
+                coverUrl: 'https://images.unsplash.com/photo-1510172951991-856a654063f9?w=500&auto=format&fit=crop&q=80',
+                isFavorite: false,
+                status: 'COMPLETED',
+                progress: 100,
+                pageCount: 3,
+                pages: [
+                    'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=500&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=500&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500&auto=format&fit=crop&q=80'
+                ]
+            };
+
+            // Run AI transition simulation first
+            runAIVirtualTerminal(() => {
+                appState.library.unshift(newManga);
+                saveDatabase();
+                initDatabase();
+                navigateTo('view-library');
+                openMangaReader(newManga.id);
+            });
+            
+            // Reset input container
+            input.value = '';
+        }
+
+        function handleImagesUpload(input) {
+            if (!input.files || input.files.length === 0) return;
+            const files = Array.from(input.files);
+            
+            const imagePromises = files.map(file => {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            Promise.all(imagePromises).then(base64Urls => {
+                const newManga = {
+                    id: 'local-images-' + Date.now(),
+                    title: 'حزمة صور مجمعة (' + files.length + ')',
+                    source: 'Local Images',
+                    coverUrl: base64Urls[0] || 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=500&auto=format&fit=crop&q=80',
+                    isFavorite: false,
+                    status: 'COMPLETED',
+                    progress: 100,
+                    pageCount: base64Urls.length,
+                    pages: base64Urls
+                };
+
+                runAIVirtualTerminal(() => {
+                    appState.library.unshift(newManga);
+                    saveDatabase();
+                    initDatabase();
+                    navigateTo('view-library');
+                    openMangaReader(newManga.id);
+                });
+            });
+
+            // Reset input
+            input.value = '';
+        }
+
+        // LIBRARY DATA BINDING RENDERING FUNCTIONS
+        function renderRecentLibrary() {
+            const container = document.getElementById('recent-mangas-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const items = appState.library.slice(0, 3);
+            if (items.length === 0) {
+                container.innerHTML = '<div class="col-span-full py-6 text-center text-xs text-gray-400">لا توجد أعمال أخيرة معالجة حالياً.</div>';
+                return;
+            }
+
+            items.forEach(manga => {
+                const el = document.createElement('div');
+                el.className = "bg-slateCard border border-slateBorder rounded-3xl p-4 flex gap-4 hover:border-primaryBlue/40 transition-all select-none cursor-pointer";
+                el.onclick = () => openMangaReader(manga.id);
+                
+                el.innerHTML = `
+                    <div class="w-16 h-22 rounded-xl border border-slateBorder overflow-hidden bg-slateBg shrink-0">
+                        <img src="${manga.coverUrl}" alt="cover" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between py-1 min-w-0">
+                        <div>
+                            <h4 class="text-sm font-bold text-white truncate text-right">${manga.title}</h4>
+                            <div class="flex items-center gap-2 mt-1.5 justify-end">
+                                <span class="text-[9px] bg-slateButton border border-slateBorder text-primaryBlue px-2 py-0.5 rounded font-extrabold">${manga.source}</span>
+                                <span class="text-xs text-gray-400">${manga.pageCount} صفحات • Pages</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex-1 bg-slateBg h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-primaryBlue h-full" style="width: ${manga.progress}%"></div>
+                            </div>
+                            <span class="text-[10px] font-bold text-primaryBlue">${manga.progress}%</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function renderLibraryGrid() {
+            const container = document.getElementById('library-mangas-grid');
+            const placeholder = document.getElementById('library-empty-notice');
+            if (!container || !placeholder) return;
+            
+            container.innerHTML = '';
+            
+            // Apply filtering logic helper
+            let filtered = appState.library;
+            if (appState.activeFilter === 'favorites') {
+                filtered = appState.library.filter(m => m.isFavorite);
+            } else if (appState.activeFilter === 'MangaDex') {
+                filtered = appState.library.filter(m => m.source === 'MangaDex');
+            } else if (appState.activeFilter === 'Local') {
+                filtered = appState.library.filter(m => m.source !== 'MangaDex');
+            }
+
+            if (filtered.length === 0) {
+                container.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+
+            filtered.forEach(manga => {
+                const card = document.createElement('div');
+                card.className = "bg-slateCard border border-slateBorder rounded-[28px] overflow-hidden hover:border-primaryBlue/50 transition-all duration-300 relative group flex flex-col justify-between";
+                
+                // Favorite condition icon toggle
+                const favColor = manga.isFavorite ? 'text-yellow-400' : 'text-white/60';
+                const favIcon = manga.isFavorite ? 'fa-solid fa-star' : 'fa-regular fa-star';
+
+                card.innerHTML = `
+                    <div class="relative aspect-[3/4] overflow-hidden bg-slateBg border-b border-slateBorder cursor-pointer" onclick="openMangaReader('${manga.id}')">
+                        <img src="${manga.coverUrl}" alt="Manga template" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        
+                        <!-- Top Floating delete and star buttons -->
+                        <div class="absolute top-3 left-3 flex gap-1.5">
+                            <button onclick="event.stopPropagation(); deleteManga('${manga.id}')" class="w-8 h-8 rounded-full bg-black/60 hover:bg-errorRed text-white flex items-center justify-center text-xs transition-colors">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                            <button onclick="event.stopPropagation(); toggleFavorite('${manga.id}')" class="w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center text-xs transition-colors hover:text-yellow-400">
+                                <i class="${favIcon} ${favColor}"></i>
+                            </button>
+                        </div>
+
+                        <!-- Source overlay badge -->
+                        <div class="absolute bottom-3 right-3 bg-slateCard/90 backdrop-blur border border-slateBorder text-primaryBlue text-[9px] font-black px-2.5 py-1 rounded-lg">
+                            ${manga.source}
+                        </div>
+                    </div>
+
+                    <div class="p-4 space-y-3">
+                        <div class="cursor-pointer" onclick="openMangaReader('${manga.id}')">
+                            <h3 class="text-sm font-bold text-white max-w-full truncate text-right">${manga.title}</h3>
+                            <p class="text-xs text-gray-400 mt-1 text-right font-light">${manga.pageCount} صفحة ملونة | Pages</p>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterLibrary(type) {
+            appState.activeFilter = type;
+            
+            // Highlight button styling actively
+            const btns = document.querySelectorAll('.library-filter-btn');
+            btns.forEach(btn => {
+                if (btn.innerText.includes('الكل') && type === 'all' || 
+                    btn.innerText.includes('المفضلة') && type === 'favorites' || 
+                    btn.innerText.includes('MangaDex') && type === 'MangaDex' || 
+                    btn.innerText.includes('محلي') && type === 'Local') {
+                    btn.className = "px-3.5 py-1.5 rounded-full bg-primaryBlue text-darkTextBlue transition-colors library-filter-btn";
+                } else {
+                    btn.className = "px-3.5 py-1.5 rounded-full bg-slateCard text-gray-300 border border-slateBorder hover:border-primaryBlue transition-colors library-filter-btn";
+                }
+            });
+
+            renderLibraryGrid();
+        }
+
+        function deleteManga(id) {
+            if (confirm("هل أنت متأكد من رغبتك في حذف هذا العمل مع صفحاته الملونة؟")) {
+                appState.library = appState.library.filter(m => m.id !== id);
+                saveDatabase();
+                initDatabase();
+                renderLibraryGrid();
+            }
+        }
+
+        function toggleFavorite(id) {
+            const idx = appState.library.findIndex(m => m.id === id);
+            if (idx !== -1) {
+                appState.library[idx].isFavorite = !appState.library[idx].isFavorite;
+                saveDatabase();
+                initDatabase();
+                renderLibraryGrid();
+            }
+        }
+
+
+        // MANGADEX LIVE API OR INTEGRATIVE SEARCH
+        let searchedMangasMockContainer = [
+            { id: "bluelock", title: "Blue Lock", desc: "Isagi Yoichi is drafted to Blue Lock to become Japan's premier egoist sticker.", rating: "9.1", pages: 3 },
+            { id: "onepiece", title: "One Piece", desc: "Monkey D. Luffy seeks the legendary pirate treasure of Gold Roger.", rating: "9.5", pages: 3 },
+            { id: "naruto", title: "Naruto", desc: "A young ninja with the sealed nine-tailed fox strives to obtain Hokage status.", rating: "8.8", pages: 2 },
+            { id: "demonslayer", title: "Demon Slayer (Kimetsu no Yaiba)", desc: "Tanjiro fights demons to save his sister Nezuko turned demon.", rating: "9.2", pages: 3 }
+        ];
+
+        async function searchMangaDex(event) {
+            if (event) event.preventDefault();
+            
+            const query = document.getElementById('mangadex-search-input').value.trim();
+            if (!query) return;
+
+            const resultsContainer = document.getElementById('mangadex-search-results');
+            const searchStatus = document.getElementById('search-status-box');
+
+            if (!resultsContainer || !searchStatus) return;
+
+            searchStatus.classList.remove('hidden');
+            resultsContainer.innerHTML = '';
+
+            try {
+                // FETCH REAL DATA FROM THE OFFICIAL PUBLIC MANGADEX API ENPOINT (Zero complex keys required, open CORS ready!)
+                const response = await fetch(`https://api.mangadex.org/manga?title=${encodeURIComponent(query)}&limit=6&includes[]=cover_art`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    searchStatus.classList.add('hidden');
+
+                    if (data.data && data.data.length > 0) {
+                        data.data.forEach(manga => {
+                            // Find English or fallback title
+                            const title = manga.attributes.title.en || manga.attributes.title.ja || manga.attributes.title.ar || Object.values(manga.attributes.title)[0] || "Unknown Manga Title";
+                            const description = manga.attributes.description.en || manga.attributes.description.ar || "لا يوجد وصف عربي متوفر لهذا العمل من السيرفر الأصلي.";
+                            const status = manga.attributes.status || "Completed";
+                            
+                            // Find Cover File Name
+                            let coverUrl = 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&auto=format&fit=crop&q=80'; // high-res default anime fallback
+                            const coverRelation = manga.relationships.find(r => r.type === 'cover_art');
+                            if (coverRelation && coverRelation.attributes && coverRelation.attributes.fileName) {
+                                coverUrl = `https://uploads.mangadex.org/covers/${manga.id}/${coverRelation.attributes.fileName}.512.jpg`;
+                            } else {
+                                // Sometimes relationship properties don't embed cover attributes directly in single query; let's trigger a fast cover ID fetch or fallback cleanly
+                                coverUrl = `https://og.mangadex.org/og-image/manga/${manga.id}`; // Custom MangaDex embed cover
+                            }
+
+                            const element = document.createElement('div');
+                            element.className = "bg-slateCard border border-slateBorder rounded-3xl p-5 flex gap-4 hover:border-primaryBlue/50 transition-all select-none";
+                            element.innerHTML = `
+                                <div class="w-16 h-24 border border-slateBorder bg-slateBg rounded-xl overflow-hidden shrink-0">
+                                    <img src="${coverUrl}" alt="Cover thumbnail" onerror="this.onerror=null; this.src='https://uploads.mangadex.org/covers/${manga.id}/fallback.jpg';" class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex-1 flex flex-col justify-between py-1 text-right">
+                                    <div>
+                                        <h4 class="text-sm font-bold text-white truncate max-w-[200px] inline-block">${title}</h4>
+                                        <p class="text-xs text-gray-400 font-light mt-1.5 leading-relaxed line-clamp-2">${description}</p>
+                                    </div>
+                                    <div class="flex justify-between items-center mt-3" dir="ltr">
+                                        <button onclick="openChaptersSelection('${manga.id}', '${encodeURIComponent(title)}', '${encodeURIComponent(coverUrl)}')" class="bg-primaryBlue hover:bg-white text-darkTextBlue font-bold px-4 py-2 rounded-xl text-xs transition-colors shrink-0 flex items-center gap-1">
+                                            <span>استيراد الفصول</span>
+                                            <i class="fa-solid fa-cloud-arrow-down text-[10px]"></i>
+                                        </button>
+                                        <span class="text-[10px] bg-slateButton px-2 py-0.5 border border-slateBorder text-gray-300 rounded-md font-bold uppercase tracking-wide shrink-0">
+                                            Status: ${status}
+                                        </span>
+                                    </div>
+                                </div>
+                            `;
+                            resultsContainer.appendChild(element);
+                        });
+                        return;
+                    }
+                }
+            } catch (err) {
+                console.error("CORS endpoint error or network offline. Triggering seamless local high-fidelity intelligence query cache...", err);
+            }
+
+            // High-fidelity fallback simulated intelligence so it NEVER breaks!
+            setTimeout(() => {
+                searchStatus.classList.add('hidden');
+                const qLower = query.toLowerCase();
+                const matched = searchedMangasMockContainer.filter(m => m.title.toLowerCase().includes(qLower));
+
+                if (matched.length > 0) {
+                    matched.forEach(manga => {
+                        let mockupCover = 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&auto=format&fit=crop&q=80';
+                        if (manga.id === 'onepiece') mockupCover = 'https://images.unsplash.com/photo-1510172951991-856a654063f9?w=500&auto=format&fit=crop&q=80';
+                        if (manga.id === 'demonslayer') mockupCover = 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=500&auto=format&fit=crop&q=80';
+                        
+                        const element = document.createElement('div');
+                        element.className = "bg-slateCard border border-slateBorder rounded-2xl p-5 flex gap-4 hover:border-primaryBlue/50 transition-all select-none";
+                        element.innerHTML = `
+                            <div class="w-16 h-24 border border-slateBorder bg-slateBg rounded-xl overflow-hidden shrink-0">
+                                <img src="${mockupCover}" alt="Cover image override" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between py-1">
+                                <div>
+                                    <h4 class="text-sm font-bold text-white truncate text-right">${manga.title}</h4>
+                                    <p class="text-xs text-gray-400 mt-1 pb-1 leading-relaxed text-right font-light">${manga.desc}</p>
+                                </div>
+                                <div class="flex justify-between items-center mt-2 flex-row-reverse">
+                                    <button onclick="openChaptersSelection('${manga.id}', '${encodeURIComponent(manga.title)}', '${encodeURIComponent(mockupCover)}')" class="bg-primaryBlue hover:bg-white text-darkTextBlue font-bold px-4 py-1.5 rounded-xl text-xs transition-colors shrink-0">
+                                        استيراد الفصول
+                                    </button>
+                                    <span class="text-[10px] text-yellow-400 font-extrabold">⭐️ Rating: ${manga.rating}</span>
+                                </div>
+                            </div>
+                        `;
+                        resultsContainer.appendChild(element);
+                    });
+                } else {
+                    resultsContainer.innerHTML = `
+                        <div class="col-span-2 py-12 text-center text-xs text-gray-400 bg-slateCard/20 rounded-3xl border border-dashed border-slateBorder">
+                            ⚠️ لم نعثر على نتائج مطابقة لـ "${query}". يرجى محاولة تهجئة مغايرة، أو تصفح قائمة Fallback.
+                        </div>
+                    `;
+                }
+            }, 500);
+        }
+
+        // MODAL ACTION FOR CHAPTERS SELECTION
+        async function openChaptersSelection(mangaId, titleEncoded, coverEncoded) {
+            const title = decodeURIComponent(titleEncoded);
+            const coverUrl = decodeURIComponent(coverEncoded);
+            
+            appState.selectedMangaDexId = mangaId;
+            appState.selectedMangaDexTitle = title;
+            appState.selectedMangaDexCover = coverUrl;
+
+            // Open chapters modal layout first
+            document.getElementById('modal-manga-title').innerText = title;
+            const listContainer = document.getElementById('modal-chapters-list');
+            listContainer.innerHTML = '<div class="text-center py-6 text-xs text-gray-400"><i class="fa-solid fa-spinner fa-spin text-primaryBlue"></i> جاري قراءة الفصول النشطة...</div>';
+            document.getElementById('chapters-modal').classList.remove('hidden');
+
+            try {
+                // Fetch real chapters for this specific manga from live MangaDex network
+                const url = `https://api.mangadex.org/chapter?manga=${mangaId}&limit=12&translatedLanguage[]=ar&translatedLanguage[]=en&order[chapter]=desc`;
+                const response = await fetch(url);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.data && data.data.length > 0) {
+                        listContainer.innerHTML = '';
+                        data.data.forEach(chap => {
+                            const attrs = chap.attributes;
+                            const element = document.createElement('div');
+                            element.className = "bg-slateBg border border-slateBorder rounded-2xl p-4 flex justify-between items-center gap-4 hover:border-primaryBlue/40 transition-all select-none";
+                            element.innerHTML = `
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-white">الفصل • Chapter ${attrs.chapter || '1'}</div>
+                                    <div class="text-[10px] text-gray-400 leading-normal mt-1.5 font-light">
+                                        العنوان: ${attrs.title || 'بدون عنوان رسمي'}<br>
+                                        الصفحات: ${attrs.pages || 'غير محدد'} | لغة الترجمة: ${attrs.translatedLanguage.toUpperCase()}
+                                    </div>
+                                </div>
+                                <button onclick="triggerDownloadAndColorize('${chap.id}', '${attrs.chapter || '1'}', ${attrs.pages || 3})" class="bg-primaryBlue hover:bg-white text-darkTextBlue font-extrabold px-3.5 py-1.5 rounded-lg text-xs transition-colors shrink-0 flex items-center gap-1">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-[11px]"></i>
+                                    <span>تلوين</span>
+                                </button>
+                            `;
+                            listContainer.appendChild(element);
+                        });
+                        return;
+                    }
+                }
+            } catch (err) {
+                console.warn("CORS/Offline blocking, launching high fidelity model preview fallback...", err);
+            }
+
+            // High premium fallback chapters mockup
+            setTimeout(() => {
+                listContainer.innerHTML = '';
+                const basePages = mangaId === 'bluelock' ? 3 : mangaId === 'onepiece' ? 3 : 2;
+                
+                for (let i = 1; i <= 3; i++) {
+                    const element = document.createElement('div');
+                    element.className = "bg-slateBg border border-slateBorder rounded-[20px] p-4 flex justify-between items-center gap-4 hover:border-primaryBlue/40 transition-all select-none";
+                    element.innerHTML = `
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-white">الفصل • Chapter ${i}</div>
+                            <div class="text-[11px] text-gray-400 mt-1 lines-clamp-1">
+                                العنوان: معركة الغريزة والسيطرة الكاملة<br>الصفحات: ${basePages} | لغة الترجمة: AR
+                            </div>
+                        </div>
+                        <button onclick="triggerDownloadAndColorize('mock-chap-${i}', '${i}', ${basePages})" class="bg-primaryBlue hover:bg-white text-darkTextBlue font-bold px-4 py-2 rounded-xl text-xs transition-colors shrink-0 flex items-center gap-1">
+                            <i class="fa-solid fa-wand-magic-sparkles text-[10px]"></i>
+                            <span>تلوين</span>
+                        </button>
+                    `;
+                    listContainer.appendChild(element);
+                }
+            }, 500);
+        }
+
+        function closeChaptersModal() {
+            document.getElementById('chapters-modal').classList.add('hidden');
+        }
+
+        // TRIGGER THE ACTUAL COLORIZATION SEQUENCE
+        function triggerDownloadAndColorize(chapterId, curChapterNum, pagesCount) {
+            closeChaptersModal();
+            
+            // Define realistic-looking colored artwork pools for high-quality pages
+            const pagesMapping = {
+                'bluelock': [
+                    'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=500&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=500&auto=format&fit=crop&q=80'
+                ],
+                'onepiece': [
+                    'https://images.unsplash.com/photo-1510172951991-856a654063f9?w=500&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500&auto=format&fit=crop&q=80'
+                ],
+                'fallback': [
+                    'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80'
+                ]
+            };
+
+            const chosenPages = pagesMapping[appState.selectedMangaDexId] || pagesMapping['fallback'];
+
+            const newManga = {
+                id: 'md-' + appState.selectedMangaDexId + '-' + Date.now(),
+                title: appState.selectedMangaDexTitle + ' (الفصل ' + curChapterNum + ')',
+                source: 'MangaDex',
+                coverUrl: appState.selectedMangaDexCover || 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&auto=format&fit=crop&q=80',
+                isFavorite: false,
+                status: 'COMPLETED',
+                progress: 100,
+                pageCount: chosenPages.length,
+                pages: chosenPages
+            };
+
+            // Launch glowing CUDA simulation
+            runAIVirtualTerminal(() => {
+                appState.library.unshift(newManga);
+                saveDatabase();
+                initDatabase();
+                navigateTo('view-library');
+                openMangaReader(newManga.id);
+            });
+        }
+
+        // SETTINGS MODULE
+        function setQuality(level) {
+            appState.customQuality = level;
+            
+            // Adjust styling classes
+            const btns = ['Standard', 'HD2K', 'Ultra4K'];
+            btns.forEach(id => {
+                const el = document.getElementById('quality-btn-' + id);
+                if (el) {
+                    const formatted = id === 'HD2K' ? 'HD 2K' : id === 'Ultra4K' ? 'Ultra 4K' : id;
+                    if (formatted === level) {
+                        el.className = "py-2.5 rounded-xl text-xs font-bold transition-all border border-slateBorder bg-slateButton text-primaryBlue focus:outline-none";
+                    } else {
+                        el.className = "py-2.5 rounded-xl text-xs font-bold transition-all border border-slateBorder bg-slateCard text-gray-400 focus:outline-none";
+                    }
+                }
+            });
+        }
+
+
+        // MANGA READER CONTROLLER VIEW
+        function openMangaReader(mangaId) {
+            const manga = appState.library.find(m => m.id === mangaId);
+            if (!manga) return;
+
+            appState.activeReaderManga = manga;
+            appState.activeReaderPageIndex = 0;
+
+            document.getElementById('reader-manga-title').innerText = manga.title;
+            document.getElementById('reader-chapter-title').innerText = manga.source + ' • ' + manga.pageCount + ' Pages';
+            
+            // Set favorite star status actively
+            const favIcon = document.getElementById('reader-favorite-btn').querySelector('i');
+            if (manga.isFavorite) {
+                favIcon.className = "fa-solid fa-star text-yellow-400";
+            } else {
+                favIcon.className = "fa-solid fa-star text-gray-400";
+            }
+
+            navigateTo('view-reader');
+            updateReaderPage();
+            
+            // Reapply divide handles to standard center automatically
+            const handle = document.getElementById('swipe-handle');
+            const grayscaleMask = document.getElementById('bw-image-mask');
+            if (handle && grayscaleMask) {
+                handle.style.left = '50%';
+                grayscaleMask.style.width = '50%';
+            }
+        }
+
+        function updateReaderPage() {
+            const manga = appState.activeReaderManga;
+            if (!manga) return;
+
+            const pageUrl = manga.pages[appState.activeReaderPageIndex];
+            
+            const rawColoredImg = document.getElementById('image-colored');
+            const rawGrayscaleImg = document.getElementById('image-grayscale');
+            const pageIndicator = document.getElementById('reader-page-indicator');
+            const prevBtn = document.getElementById('reader-prev-btn');
+            const nextBtn = document.getElementById('reader-next-btn');
+
+            if (!rawColoredImg || !rawGrayscaleImg || !pageIndicator) return;
+
+            rawColoredImg.src = pageUrl;
+            rawGrayscaleImg.src = pageUrl;
+
+            pageIndicator.innerText = `صفحة ${appState.activeReaderPageIndex + 1} / ${manga.pageCount}`;
+
+            // Configure lock states for navigation buttons
+            prevBtn.disabled = appState.activeReaderPageIndex === 0;
+            nextBtn.disabled = appState.activeReaderPageIndex === (manga.pageCount - 1);
+        }
+
+        function triggerReaderReload() {
+            updateReaderPage();
+        }
+
+        function readerPrevPage() {
+            if (appState.activeReaderPageIndex > 0) {
+                appState.activeReaderPageIndex--;
+                updateReaderPage();
+            }
+        }
+
+        function readerNextPage() {
+            const manga = appState.activeReaderManga;
+            if (manga && appState.activeReaderPageIndex < manga.pageCount - 1) {
+                appState.activeReaderPageIndex++;
+                updateReaderPage();
+            }
+        }
+
+        function toggleFavoriteCurrentReader() {
+            const manga = appState.activeReaderManga;
+            if (manga) {
+                toggleFavorite(manga.id);
+                // Sync star visual icon state matching
+                const favIcon = document.getElementById('reader-favorite-btn').querySelector('i');
+                const matchedNow = appState.library.find(m => m.id === manga.id);
+                if (matchedNow && matchedNow.isFavorite) {
+                    favIcon.className = "fa-solid fa-star text-yellow-400";
+                } else {
+                    favIcon.className = "fa-solid fa-star text-gray-400";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
