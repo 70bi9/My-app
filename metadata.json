@@ -1,0 +1,8 @@
+{
+  "name": "MangaColor AI",
+  "description": "MangaColor AI - AI-powered manga and anime coloring tool that retains original artwork and line detail.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

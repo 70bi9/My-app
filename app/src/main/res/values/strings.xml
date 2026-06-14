@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">MangaColor AI</string>
+    <string name="title_home">MangaColor AI</string>
+    <string name="desc_subtitle">سيرفر تلوين المانغا الذكي • AI Manga Colorizer</string>
+    
+    <!-- Navigation / Tabs -->
+    <string name="tab_home">الرئيسية • Home</string>
+    <string name="tab_library">المكتبة • Library</string>
+    <string name="tab_import">الاستيراد • Import</string>
+    <string name="tab_settings">الإعدادات • Settings</string>
+    
+    <!-- Actions -->
+    <string name="action_upload_pdf">رفع ملف PDF المانغا • Upload Manga PDF</string>
+    <string name="action_upload_images">رفع صور PNG/JPG • Upload Images</string>
+    <string name="action_import_from_source">استيراد من مصادر خارجية • Import From Source</string>
+    <string name="action_library">مكتبتي • Library</string>
+    <string name="action_settings">الإعدادات • Settings</string>
+    
+    <!-- Colors -->
+    <string name="color_primary">أزرق الأنمي</string>
+</resources>
